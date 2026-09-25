@@ -1,430 +1,400 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="th">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d6d6d; -webkit-text-stroke: #6d6d6d}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6b0001; -webkit-text-stroke: #6b0001}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #fb0007; -webkit-text-stroke: #fb0007}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #0000ff; -webkit-text-stroke: #0000ff}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000; min-height: 16.0px}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #0f7001; -webkit-text-stroke: #0f7001}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #137646; -webkit-text-stroke: #137646}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #900112; -webkit-text-stroke: #900112}
-    span.s1 {font-kerning: none; background-color: #fffffe}
-    span.s2 {font-kerning: none; color: #fb0007; background-color: #fffffe; -webkit-text-stroke: 0px #fb0007}
-    span.s3 {font-kerning: none; color: #2a2a2a; background-color: #fffffe; -webkit-text-stroke: 0px #2a2a2a}
-    span.s4 {font-kerning: none; color: #000000; background-color: #fffffe; -webkit-text-stroke: 0px #000000}
-    span.s5 {font-kerning: none; color: #0000ff; background-color: #fffffe; -webkit-text-stroke: 0px #0000ff}
-    span.s6 {font-kerning: none; color: #6b0001; background-color: #fffffe; -webkit-text-stroke: 0px #6b0001}
-    span.s7 {font-kerning: none}
-    span.s8 {font-kerning: none; color: #900112; background-color: #fffffe; -webkit-text-stroke: 0px #900112}
-    span.s9 {font-kerning: none; color: #093c94; background-color: #fffffe; -webkit-text-stroke: 0px #093c94}
-    span.s10 {font-kerning: none; color: #137646; background-color: #fffffe; -webkit-text-stroke: 0px #137646}
-    span.s11 {font-kerning: none; color: #0f7001; background-color: #fffffe; -webkit-text-stroke: 0px #0f7001}
-    span.s12 {font-kerning: none; color: #0e6e6d; background-color: #fffffe; -webkit-text-stroke: 0px #0e6e6d}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRA eMag Select | ลงทะเบียนคัดเลือก</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cra: { blue: '#2563eb', lightBlue: '#60a5fa', orange: '#f97316', sand: '#f8fafc', dark: '#334155' }
+                    },
+                    fontFamily: { sans: ['Prompt', 'Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f8fafc; }
+        
+        /* Custom Radio Card */
+        .type-card input[type="radio"] { display: none; }
+        .type-card label {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .type-card input[type="radio"]:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
+        }
+        .type-card input[type="radio"]:checked + label .icon-box {
+            background-color: #2563eb;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Form Elements */
+        .input-field {
+            width: 100%; padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem; 
+            border-radius: 0.75rem; border: 1px solid #e2e8f0;
+            background-color: white; transition: all 0.3s;
+            outline: none;
+        }
+        .input-field:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
+        
+        /* Smooth Slide Down */
+        .slide-down {
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-down.active { max-height: 2000px; opacity: 1; overflow: visible; }
+        
+        /* Custom Select */
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em 1.5em; }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">html</span><span class="s4"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s5">"th"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">CRA eMag Select | ลงทะเบียนคัดเลือก</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">  </span></span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s1">&lt;!-- Google Fonts --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s4"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"preconnect"</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://fonts.googleapis.com"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s4"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"preconnect"</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://fonts.gstatic.com"</span><span class="s4"> </span><span class="s2">crossorigin</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Prompt:wght@300;400;500;600&amp;display=swap"</span><span class="s4"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">  </span></span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s1">&lt;!-- Tailwind CSS --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s4"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>tailwind.config = {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>theme: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>extend: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span>colors: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span>cra: { blue: </span><span class="s8">'#2563eb'</span><span class="s1">, lightBlue: </span><span class="s8">'#60a5fa'</span><span class="s1">, orange: </span><span class="s8">'#f97316'</span><span class="s1">, sand: </span><span class="s8">'#f8fafc'</span><span class="s1">, dark: </span><span class="s8">'#334155'</span><span class="s1"> }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span>},</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span>fontFamily: { sans: [</span><span class="s8">'Prompt'</span><span class="s1">, </span><span class="s8">'Inter'</span><span class="s1">, </span><span class="s8">'sans-serif'</span><span class="s1">] }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s6">body</span><span class="s4"> { </span><span class="s1">background-color:</span><span class="s4"> </span><span class="s9">#f8fafc</span><span class="s4">; }</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">      </span></span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">/* Custom Radio Card */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s6">.type-card</span><span class="s1"> </span><span class="s6">input</span><span class="s1">[</span><span class="s9">type</span><span class="s1">=</span><span class="s8">"radio"</span><span class="s1">] { </span><span class="s2">display:</span><span class="s1"> </span><span class="s9">none</span><span class="s1">; }</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">.type-card</span><span class="s4"> </span><span class="s1">label</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">cursor:</span><span class="s1"> </span><span class="s9">pointer</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s9">all</span><span class="s1"> </span><span class="s10">0.3s</span><span class="s1"> </span><span class="s9">cubic-bezier(</span><span class="s10">0.4</span><span class="s1">, </span><span class="s10">0</span><span class="s1">, </span><span class="s10">0.2</span><span class="s1">, </span><span class="s10">1</span><span class="s9">)</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">.type-card</span><span class="s4"> </span><span class="s1">input</span><span class="s4">[</span><span class="s9">type</span><span class="s4">=</span><span class="s8">"radio"</span><span class="s4">]</span><span class="s1">:checked</span><span class="s4"> + </span><span class="s1">label</span><span class="s4"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">border-color:</span><span class="s4"> </span><span class="s9">#2563eb</span><span class="s4">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s9">#eff6ff</span><span class="s4">;</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s2">box-shadow:</span><span class="s4"> </span><span class="s1">0</span><span class="s4"> </span><span class="s1">10px</span><span class="s4"> </span><span class="s1">25px</span><span class="s4"> </span><span class="s1">-5px</span><span class="s4"> </span><span class="s9">rgba(</span><span class="s1">37</span><span class="s4">, </span><span class="s1">99</span><span class="s4">, </span><span class="s1">235</span><span class="s4">, </span><span class="s1">0.15</span><span class="s9">)</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">.type-card</span><span class="s4"> </span><span class="s1">input</span><span class="s4">[</span><span class="s9">type</span><span class="s4">=</span><span class="s8">"radio"</span><span class="s4">]</span><span class="s1">:checked</span><span class="s4"> + </span><span class="s1">label</span><span class="s4"> </span><span class="s1">.icon-box</span><span class="s4"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s9">#2563eb</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">color:</span><span class="s1"> </span><span class="s9">white</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">transform:</span><span class="s1"> </span><span class="s9">scale(</span><span class="s10">1.1</span><span class="s9">)</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">/* Form Elements */</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">.input-field</span><span class="s4"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">width:</span><span class="s4"> </span><span class="s10">100%</span><span class="s4">; </span><span class="s1">padding-left:</span><span class="s4"> </span><span class="s10">1rem</span><span class="s4">; </span><span class="s1">padding-right:</span><span class="s4"> </span><span class="s10">1rem</span><span class="s4">; </span><span class="s1">padding-top:</span><span class="s4"> </span><span class="s10">0.75rem</span><span class="s4">; </span><span class="s1">padding-bottom:</span><span class="s4"> </span><span class="s10">0.75rem</span><span class="s4">;<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">border-radius:</span><span class="s4"> </span><span class="s10">0.75rem</span><span class="s4">; </span><span class="s1">border:</span><span class="s4"> </span><span class="s10">1px</span><span class="s4"> </span><span class="s9">solid</span><span class="s4"> </span><span class="s9">#e2e8f0</span><span class="s4">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s9">white</span><span class="s4">; </span><span class="s1">transition:</span><span class="s4"> </span><span class="s9">all</span><span class="s4"> </span><span class="s10">0.3s</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">outline:</span><span class="s1"> </span><span class="s9">none</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s6">.input-field:focus</span><span class="s4"> { </span><span class="s1">border-color:</span><span class="s4"> </span><span class="s9">#2563eb</span><span class="s4">; </span><span class="s1">box-shadow:</span><span class="s4"> </span><span class="s10">0</span><span class="s4"> </span><span class="s10">0</span><span class="s4"> </span><span class="s10">0</span><span class="s4"> </span><span class="s10">4px</span><span class="s4"> </span><span class="s9">rgba(</span><span class="s10">37</span><span class="s4">,</span><span class="s10">99</span><span class="s4">,</span><span class="s10">235</span><span class="s4">,</span><span class="s10">0.1</span><span class="s9">)</span><span class="s4">; }</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">      </span></span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">/* Smooth Slide Down */</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">.slide-down</span><span class="s4"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">max-height:</span><span class="s4"> </span><span class="s10">0</span><span class="s4">; </span><span class="s1">overflow:</span><span class="s4"> </span><span class="s9">hidden</span><span class="s4">; </span><span class="s1">opacity:</span><span class="s4"> </span><span class="s10">0</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s9">all</span><span class="s1"> </span><span class="s10">0.5s</span><span class="s1"> </span><span class="s9">cubic-bezier(</span><span class="s10">0.4</span><span class="s1">, </span><span class="s10">0</span><span class="s1">, </span><span class="s10">0.2</span><span class="s1">, </span><span class="s10">1</span><span class="s9">)</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s6">.slide-down.active</span><span class="s4"> { </span><span class="s1">max-height:</span><span class="s4"> </span><span class="s10">2000px</span><span class="s4">; </span><span class="s1">opacity:</span><span class="s4"> </span><span class="s10">1</span><span class="s4">; </span><span class="s1">overflow:</span><span class="s4"> </span><span class="s9">visible</span><span class="s4">; }</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">      </span></span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s1">/* Custom Select */</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s6">select</span><span class="s4"> { </span><span class="s2">appearance:</span><span class="s4"> </span><span class="s9">none</span><span class="s4">; </span><span class="s2">background-image:</span><span class="s4"> </span><span class="s9">url</span><span class="s4">(</span><span class="s1">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"</span><span class="s4">); </span><span class="s2">background-repeat:</span><span class="s4"> </span><span class="s9">no-repeat</span><span class="s4">; </span><span class="s2">background-position:</span><span class="s4"> </span><span class="s9">right</span><span class="s4"> </span><span class="s10">1rem</span><span class="s4"> </span><span class="s9">center</span><span class="s4">; </span><span class="s2">background-size:</span><span class="s4"> </span><span class="s10">1.5em</span><span class="s4"> </span><span class="s10">1.5em</span><span class="s4">; }</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s3">&lt;</span><span class="s6">body</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-cra-dark font-sans antialiased min-h-screen flex flex-col"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s1">&lt;!-- Minimal Header with Step Indicator --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">header</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center gap-4"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-10 h-10 bg-cra-blue text-white flex items-center justify-center rounded-2xl font-bold text-xl shadow-md"</span><span class="s3">&gt;</span><span class="s4">C</span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xl tracking-wide text-cra-blue"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"font-bold"</span><span class="s3">&gt;</span><span class="s1">CRA</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-light text-gray-500 text-sm ml-1"</span><span class="s3">&gt;</span><span class="s4">eMag Select</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hidden md:flex items-center gap-2 text-sm font-medium"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-cra-blue bg-blue-50 px-3 py-1 rounded-full"</span><span class="s3">&gt;&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fas fa-check-circle mr-1"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s4"> 01 ลงทะเบียน</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fas fa-chevron-right text-gray-300 text-xs"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-gray-400"</span><span class="s3">&gt;</span><span class="s1">02 คัดเลือก</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fas fa-chevron-right text-gray-300 text-xs"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-gray-400"</span><span class="s3">&gt;</span><span class="s1">03 ตรวจสอบ</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fas fa-chevron-right text-gray-300 text-xs"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-gray-400"</span><span class="s3">&gt;</span><span class="s1">04 เสร็จสิ้น</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;/</span><span class="s1">header</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s6">main</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex-grow py-12 px-6"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-w-3xl mx-auto"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-center mb-10"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">h1</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-3xl md:text-4xl font-bold text-cra-blue mb-3"</span><span class="s3">&gt;</span><span class="s4">คุณคือใคร?</span><span class="s3">&lt;/</span><span class="s6">h1</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-gray-500"</span><span class="s3">&gt;</span><span class="s1">กรุณาเลือกสถานะเพื่อเข้าสู่ระบบคัดเลือก e-Magazine ประจำปี 2570</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">&lt;!-- USER TYPE SELECTION --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"type-card"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"radio"</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"userType"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"type-student"</span><span class="s4"> </span><span class="s2">value</span><span class="s3">=</span><span class="s1">"student"</span><span class="s4"> </span><span class="s2">onchange</span><span class="s3">=</span><span class="s1">"handleTypeSelection()"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">for</span><span class="s3">=</span><span class="s1">"type-student"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block p-8 bg-white border-2 border-gray-100 rounded-2xl h-full flex flex-col items-center justify-center text-center hover:border-blue-200"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"icon-box w-16 h-16 bg-blue-50 text-cra-blue rounded-2xl flex items-center justify-center text-2xl mb-4 transition-all duration-300"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-user-graduate"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-2xl font-bold text-gray-800"</span><span class="s3">&gt;</span><span class="s4">นักศึกษา</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"type-card"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"radio"</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"userType"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"type-staff"</span><span class="s4"> </span><span class="s2">value</span><span class="s3">=</span><span class="s1">"staff"</span><span class="s4"> </span><span class="s2">onchange</span><span class="s3">=</span><span class="s1">"handleTypeSelection()"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">for</span><span class="s3">=</span><span class="s1">"type-staff"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block p-8 bg-white border-2 border-gray-100 rounded-2xl h-full flex flex-col items-center justify-center text-center hover:border-blue-200"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"icon-box w-16 h-16 bg-blue-50 text-cra-blue rounded-2xl flex items-center justify-center text-2xl mb-4 transition-all duration-300"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-briefcase"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-2xl font-bold text-gray-800"</span><span class="s3">&gt;</span><span class="s1">บุคลากร / อาจารย์</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">&lt;!-- FORM SECTION --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"form-section"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"slide-down"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-8"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">h2</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-id-card text-cra-blue"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s1"> ข้อมูลส่วนตัว</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">h2</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                  </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">form</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"regForm"</span><span class="s4"> </span><span class="s2">onsubmit</span><span class="s3">=</span><span class="s1">"event.preventDefault(); validateAndSubmit();"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"space-y-6"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                          </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"craIdLabel"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">รหัสประจำตัว </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"craId"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"กรอกรหัสประจำตัว"</span><span class="s4"> </span><span class="s2">pattern</span><span class="s3">=</span><span class="s1">"[0-9]*"</span><span class="s4"> </span><span class="s2">inputmode</span><span class="s3">=</span><span class="s1">"numeric"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs text-gray-400 mt-1"</span><span class="s3">&gt;</span><span class="s1">รับเฉพาะตัวเลขเท่านั้น</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-1 md:grid-cols-12 gap-6"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"md:col-span-4"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">คำนำหน้า </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">select</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"prefix"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field"</span><span class="s4"> </span><span class="s2">onchange</span><span class="s3">=</span><span class="s1">"handlePrefixChange()"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">""</span><span class="s1"> </span><span class="s2">disabled</span><span class="s1"> </span><span class="s2">selected</span><span class="s3">&gt;</span><span class="s1">เลือกคำนำหน้า</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"นาย"</span><span class="s3">&gt;</span><span class="s1">นาย</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"นาง"</span><span class="s3">&gt;</span><span class="s1">นาง</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"นางสาว"</span><span class="s3">&gt;</span><span class="s1">นางสาว</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"อื่นๆ"</span><span class="s3">&gt;</span><span class="s1">อื่น ๆ (โปรดระบุ)</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;/</span><span class="s6">select</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"custom-prefix-wrapper"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"md:col-span-8 hidden"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">ระบุคำนำหน้าชื่อ </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"customPrefix"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"เช่น ดร., ผศ.ดร."</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-1 md:grid-cols-2 gap-6"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"name-fields"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">ชื่อ </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"firstName"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"ชื่อจริง"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">นามสกุล </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s1"> </span><span class="s2">type</span><span class="s3">=</span><span class="s5">"text"</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"lastName"</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"input-field"</span><span class="s1"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s5">"นามสกุล"</span><span class="s1"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"affiliationLabel"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">หลักสูตร / สังกัด </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">select</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"affiliation"</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"input-field"</span><span class="s1"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s11">&lt;!-- Options injected via JS --&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">select</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block text-sm font-medium text-gray-700 mb-2"</span><span class="s3">&gt;</span><span class="s4">อีเมลสถาบัน </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-red-500"</span><span class="s3">&gt;</span><span class="s4">*</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col sm:flex-row gap-2"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"emailUsername"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field flex-grow"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"username"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center justify-center px-4 font-bold text-gray-400 bg-gray-50 border border-gray-200 rounded-xl sm:rounded-none sm:border-l-0 sm:border-r-0"</span><span class="s3">&gt;</span><span class="s4">@</span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">select</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"emailDomain"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"input-field sm:w-48 bg-gray-50"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                      </span></span><span class="s11">&lt;!-- Domains injected via JS --&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;/</span><span class="s6">select</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs text-gray-400 mt-2"</span><span class="s3">&gt;&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-info-circle mr-1"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s1"> อนุญาตเฉพาะอีเมลของสถาบันเท่านั้น</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">form</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s1">&lt;!-- PDPA Card --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white border border-gray-200 rounded-3xl overflow-hidden mb-8 shadow-sm"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-gray-50 px-6 py-4 border-b border-gray-200"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-bold text-gray-800 flex items-center gap-2"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-shield-alt text-green-500"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s1"> การยินยอมใช้ข้อมูลส่วนบุคคล (PDPA)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"p-6"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-sm text-gray-600 leading-relaxed mb-6"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span>CRA Library จะใช้ข้อมูลของท่านเพื่อวัตถุประสงค์ในการรวบรวมความคิดเห็น การวิเคราะห์ความต้องการทรัพยากรสารสนเทศ และการวางแผนจัดหา e-Magazine สำหรับปีงบประมาณ 2570 เท่านั้น ข้อมูลของท่านจะถูกเก็บรักษาเป็นความลับและไม่ถูกนำไปใช้เพื่อการอื่น</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"space-y-3"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-start gap-3 cursor-pointer group"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative flex items-center mt-1"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"radio"</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"pdpa"</span><span class="s4"> </span><span class="s2">value</span><span class="s3">=</span><span class="s1">"accept"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-5 h-5 accent-cra-blue cursor-pointer"</span><span class="s4"> </span><span class="s2">onchange</span><span class="s3">=</span><span class="s1">"handlePdpaChange()"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block font-medium text-gray-800 group-hover:text-cra-blue transition-colors"</span><span class="s3">&gt;</span><span class="s4">ข้าพเจ้ายินยอม</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs text-gray-500"</span><span class="s3">&gt;</span><span class="s1">ให้เก็บรวบรวมและใช้ข้อมูลตามวัตถุประสงค์ดังกล่าว</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;</span><span class="s6">label</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-start gap-3 cursor-pointer group"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative flex items-center mt-1"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"radio"</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"pdpa"</span><span class="s4"> </span><span class="s2">value</span><span class="s3">=</span><span class="s1">"decline"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-5 h-5 accent-red-500 cursor-pointer"</span><span class="s4"> </span><span class="s2">onchange</span><span class="s3">=</span><span class="s1">"handlePdpaChange()"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"block font-medium text-gray-800 group-hover:text-red-500 transition-colors"</span><span class="s3">&gt;</span><span class="s4">ไม่ยินยอม</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                                  </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs text-red-400 hidden"</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"decline-msg"</span><span class="s3">&gt;</span><span class="s1">* หากไม่ยินยอม ท่านจะไม่สามารถดำเนินการคัดเลือกได้</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                          </span></span><span class="s3">&lt;/</span><span class="s6">label</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col-reverse sm:flex-row justify-between gap-4"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"button"</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"goToPage('index')"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"px-6 py-4 rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-all"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span>กลับหน้าแรก</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"button"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"submitBtn"</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"validateAndSubmit()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-gray-300 text-gray-500 px-8 py-4 rounded-full font-bold shadow-sm transition-all flex items-center justify-center gap-2 cursor-not-allowed"</span><span class="s4"> </span><span class="s2">disabled</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                      </span>ดำเนินการต่อ </span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-arrow-right"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"error-msg"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"mt-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm hidden flex items-center gap-2"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fas fa-exclamation-triangle"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s1"> </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s3">&gt;</span><span class="s1">กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;/</span><span class="s1">main</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">function</span><span class="s1"> goToPage(pageName) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> btn = document.querySelector(</span><span class="s8">'button[onclick^="goToPage"]'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1">(btn) {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>btn.innerHTML = </span><span class="s1">'&lt;i class="fas fa-spinner fa-spin"&gt;&lt;/i&gt; กำลังโหลด...'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>window.location.href = pageName + </span><span class="s8">'.html'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">const</span><span class="s1"> studentAffiliations = [</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"แพทยศาสตร์"</span><span class="s4">, </span><span class="s1">"วิทยาศาสตร์ข้อมูลสุขภาพ"</span><span class="s4">, </span><span class="s1">"พยาบาลศาสตร์"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"พยาบาลศาสตร์ (นานาชาติ)"</span><span class="s4">, </span><span class="s1">"พยาบาลศาสตร์ (2.5 ปี)"</span><span class="s4">, </span><span class="s1">"รังสีเทคนิค"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"วิทยาศาสตร์การเคลื่อนไหวและสุขภาพ"</span><span class="s4">, </span><span class="s1">"ฉุกเฉินการแพทย์"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"นวัตกรรมวิทยาศาสตร์การแพทย์"</span><span class="s4">, </span><span class="s1">"วิศวกรรมชีวการแพทย์"</span><span class="s4">, </span><span class="s1">"เทคโนโลยีอาหารทางการแพทย์และสุขภาพ"</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">const</span><span class="s1"> staffAffiliations = [</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"สำนักงานราชวิทยาลัยจุฬาภรณ์"</span><span class="s4">, </span><span class="s1">"วิทยาลัยวิทยาศาสตร์การแพทย์เจ้าฟ้าจุฬาภรณ์"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"คณะแพทยศาสตร์ศรีสวางควัฒน"</span><span class="s4">, </span><span class="s1">"คณะพยาบาลศาสตร์อัครราชกุมารี"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"คณะเทคโนโลยีวิทยาศาสตร์สุขภาพ"</span><span class="s4">, </span><span class="s1">"คณะวิทยาศาสตร์"</span><span class="s4">, </span><span class="s1">"คณะวิศวกรรมศาสตร์"</span><span class="s4">,<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">"คณะนวัตกรรมอาหารและโภชนาการ"</span><span class="s4">, </span><span class="s1">"โครงการจัดตั้งคณะเภสัชศาสตร์"</span><span class="s4">, </span><span class="s1">"โรงพยาบาลจุฬาภรณ์"</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>];</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">function</span><span class="s1"> handleTypeSelection() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> isStudent = document.getElementById(</span><span class="s8">'type-student'</span><span class="s1">).checked;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> formSection = document.getElementById(</span><span class="s8">'form-section'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> affilLabel = document.getElementById(</span><span class="s8">'affiliationLabel'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> affilSelect = document.getElementById(</span><span class="s8">'affiliation'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> domainSelect = document.getElementById(</span><span class="s8">'emailDomain'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> craIdLabel = document.getElementById(</span><span class="s8">'craIdLabel'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> craIdInput = document.getElementById(</span><span class="s8">'craId'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>formSection.classList.add(</span><span class="s8">'active'</span><span class="s1">);</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span>affilSelect.innerHTML = </span><span class="s1">'&lt;option value="" disabled selected&gt;เลือกรายการ...&lt;/option&gt;'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>domainSelect.innerHTML = </span><span class="s8">''</span><span class="s1">;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1"> (isStudent) {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>craIdLabel.innerHTML = </span><span class="s1">'รหัสนักศึกษา &lt;span class="text-red-500"&gt;*&lt;/span&gt;'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>craIdInput.placeholder = </span><span class="s8">'กรอกรหัสนักศึกษา'</span><span class="s1">;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">              </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>affilLabel.innerHTML = </span><span class="s1">'หลักสูตร &lt;span class="text-red-500"&gt;*&lt;/span&gt;'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>studentAffiliations.forEach(item =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span>affilSelect.add(</span><span class="s5">new</span><span class="s1"> </span><span class="s12">Option</span><span class="s1">(item, item));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>domainSelect.add(</span><span class="s5">new</span><span class="s1"> </span><span class="s12">Option</span><span class="s1">(</span><span class="s8">'edu.cra.ac.th'</span><span class="s1">, </span><span class="s8">'edu.cra.ac.th'</span><span class="s1">));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>domainSelect.add(</span><span class="s5">new</span><span class="s1"> </span><span class="s12">Option</span><span class="s1">(</span><span class="s8">'pccms.ac.th'</span><span class="s1">, </span><span class="s8">'pccms.ac.th'</span><span class="s1">));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>domainSelect.classList.remove(</span><span class="s8">'bg-gray-200'</span><span class="s1">, </span><span class="s8">'pointer-events-none'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>} </span><span class="s5">else</span><span class="s1"> {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>craIdLabel.innerHTML = </span><span class="s1">'รหัสพนักงาน &lt;span class="text-red-500"&gt;*&lt;/span&gt;'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>craIdInput.placeholder = </span><span class="s8">'กรอกรหัสพนักงาน'</span><span class="s1">;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>affilLabel.innerHTML = </span><span class="s1">'สังกัด &lt;span class="text-red-500"&gt;*&lt;/span&gt;'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>staffAffiliations.forEach(item =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                  </span>affilSelect.add(</span><span class="s5">new</span><span class="s1"> </span><span class="s12">Option</span><span class="s1">(item, item));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>domainSelect.add(</span><span class="s5">new</span><span class="s1"> </span><span class="s12">Option</span><span class="s1">(</span><span class="s8">'cra.ac.th'</span><span class="s1">, </span><span class="s8">'cra.ac.th'</span><span class="s1">));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>domainSelect.classList.add(</span><span class="s8">'bg-gray-200'</span><span class="s1">, </span><span class="s8">'pointer-events-none'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">function</span><span class="s1"> handlePrefixChange() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> prefix = document.getElementById(</span><span class="s8">'prefix'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> customWrapper = document.getElementById(</span><span class="s8">'custom-prefix-wrapper'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> customInput = document.getElementById(</span><span class="s8">'customPrefix'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> nameFields = document.getElementById(</span><span class="s8">'name-fields'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1"> (prefix === </span><span class="s8">'อื่นๆ'</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>customWrapper.classList.remove(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>customInput.required = </span><span class="s5">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>nameFields.classList.replace(</span><span class="s8">'md:col-span-2'</span><span class="s1">, </span><span class="s8">'md:col-span-12'</span><span class="s1">);<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>} </span><span class="s5">else</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>customWrapper.classList.add(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>customInput.required = </span><span class="s5">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>customInput.value = </span><span class="s8">''</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">function</span><span class="s1"> handlePdpaChange() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> pdpaVal = document.querySelector(</span><span class="s8">'input[name="pdpa"]:checked'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> submitBtn = document.getElementById(</span><span class="s8">'submitBtn'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> declineMsg = document.getElementById(</span><span class="s8">'decline-msg'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1"> (pdpaVal === </span><span class="s8">'accept'</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>declineMsg.classList.add(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.disabled = </span><span class="s5">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.replace(</span><span class="s8">'bg-gray-300'</span><span class="s1">, </span><span class="s8">'bg-cra-blue'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.replace(</span><span class="s8">'text-gray-500'</span><span class="s1">, </span><span class="s8">'text-white'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.replace(</span><span class="s8">'cursor-not-allowed'</span><span class="s1">, </span><span class="s8">'hover:bg-cra-lightBlue'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.add(</span><span class="s8">'shadow-lg'</span><span class="s1">, </span><span class="s8">'shadow-blue-500/30'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>} </span><span class="s5">else</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>declineMsg.classList.remove(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.disabled = </span><span class="s5">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.replace(</span><span class="s8">'bg-cra-blue'</span><span class="s1">, </span><span class="s8">'bg-gray-300'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.replace(</span><span class="s8">'text-white'</span><span class="s1">, </span><span class="s8">'text-gray-500'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>submitBtn.classList.add(</span><span class="s8">'cursor-not-allowed'</span><span class="s1">);</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>submitBtn.classList.remove(</span><span class="s1">'shadow-lg'</span><span class="s4">, </span><span class="s1">'shadow-blue-500/30'</span><span class="s4">, </span><span class="s1">'hover:bg-cra-lightBlue'</span><span class="s4">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span></span><span class="s5">function</span><span class="s1"> validateAndSubmit() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> errorBox = document.getElementById(</span><span class="s8">'error-msg'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> errorText = errorBox.querySelector(</span><span class="s8">'span'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>errorBox.classList.add(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> craId = document.getElementById(</span><span class="s8">'craId'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> prefix = document.getElementById(</span><span class="s8">'prefix'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> customPrefix = document.getElementById(</span><span class="s8">'customPrefix'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> firstName = document.getElementById(</span><span class="s8">'firstName'</span><span class="s1">).value.trim();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> lastName = document.getElementById(</span><span class="s8">'lastName'</span><span class="s1">).value.trim();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> affiliation = document.getElementById(</span><span class="s8">'affiliation'</span><span class="s1">).value;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> username = document.getElementById(</span><span class="s8">'emailUsername'</span><span class="s1">).value.trim();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> domain = document.getElementById(</span><span class="s8">'emailDomain'</span><span class="s1">).value;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1"> (!craId || !prefix || !firstName || !lastName || !affiliation || !username) {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">              </span>errorText.innerText = </span><span class="s1">"กรุณากรอกข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบถ้วน"</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>errorBox.classList.remove(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s5">return</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">if</span><span class="s1"> (prefix === </span><span class="s8">'อื่นๆ'</span><span class="s1"> &amp;&amp; !customPrefix) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>errorText.innerText = </span><span class="s8">"กรุณาระบุคำนำหน้าชื่อของคุณ"</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>errorBox.classList.remove(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span></span><span class="s5">return</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> userData = {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>userType: document.getElementById(</span><span class="s8">'type-student'</span><span class="s1">).checked ? </span><span class="s8">'นักศึกษา'</span><span class="s1"> : </span><span class="s8">'บุคลากร'</span><span class="s1">,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>craId: craId,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>name: (prefix === </span><span class="s8">'อื่นๆ'</span><span class="s1"> ? customPrefix : prefix) + firstName + </span><span class="s8">' '</span><span class="s1"> + lastName,<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>department: affiliation,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>email: </span><span class="s8">`</span><span class="s1">${username}</span><span class="s8">@</span><span class="s1">${domain}</span><span class="s8">`</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>};</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">// บันทึกตัวแปรให้ตรงกับที่หน้ารีวิวต้องการดึงไปแสดงผล</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>localStorage.setItem(</span><span class="s8">'cra_user_info'</span><span class="s1">, </span><span class="s12">JSON</span><span class="s1">.stringify(userData));</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">          </span></span><span class="s1">// เคลียร์ตะกร้าสินค้าเก่าทิ้ง เพื่อให้คนใหม่เริ่มคัดเลือกจาก 0</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>localStorage.removeItem(</span><span class="s8">'cra_selected_mags'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>localStorage.removeItem(</span><span class="s8">'cra_cart'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s5">const</span><span class="s1"> btn = document.getElementById(</span><span class="s8">'submitBtn'</span><span class="s1">);</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">          </span>btn.innerHTML = </span><span class="s1">'&lt;i class="fas fa-spinner fa-spin"&gt;&lt;/i&gt; กำลังไปหน้าถัดไป...'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>btn.disabled = </span><span class="s5">true</span><span class="s1">;</span></p>
-<p class="p6"><span class="s7"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>setTimeout(() =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">              </span>goToPage(</span><span class="s8">'select'</span><span class="s1">);<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">          </span>}, </span><span class="s10">500</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">  </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+<body class="text-cra-dark font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Minimal Header with Step Indicator -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-cra-blue text-white flex items-center justify-center rounded-2xl font-bold text-xl shadow-md">C</div>
+                <div class="text-xl tracking-wide text-cra-blue">
+                    <span class="font-bold">CRA</span> 
+                    <span class="font-light text-gray-500 text-sm ml-1">eMag Select</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-2 text-sm font-medium">
+                <span class="text-cra-blue bg-blue-50 px-3 py-1 rounded-full"><i class="fas fa-check-circle mr-1"></i> 01 ลงทะเบียน</span>
+                <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
+                <span class="text-gray-400">02 คัดเลือก</span>
+                <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
+                <span class="text-gray-400">03 ตรวจสอบ</span>
+                <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
+                <span class="text-gray-400">04 เสร็จสิ้น</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12 px-6">
+        <div class="max-w-3xl mx-auto">
+            
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold text-cra-blue mb-3">คุณคือใคร?</h1>
+                <p class="text-gray-500">กรุณาเลือกสถานะเพื่อเข้าสู่ระบบคัดเลือก e-Magazine ประจำปี 2570</p>
+            </div>
+
+            <!-- USER TYPE SELECTION -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="type-card">
+                    <input type="radio" name="userType" id="type-student" value="student" onchange="handleTypeSelection()">
+                    <label for="type-student" class="block p-8 bg-white border-2 border-gray-100 rounded-2xl h-full flex flex-col items-center justify-center text-center hover:border-blue-200">
+                        <div class="icon-box w-16 h-16 bg-blue-50 text-cra-blue rounded-2xl flex items-center justify-center text-2xl mb-4 transition-all duration-300">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">นักศึกษา</h3>
+                    </label>
+                </div>
+
+                <div class="type-card">
+                    <input type="radio" name="userType" id="type-staff" value="staff" onchange="handleTypeSelection()">
+                    <label for="type-staff" class="block p-8 bg-white border-2 border-gray-100 rounded-2xl h-full flex flex-col items-center justify-center text-center hover:border-blue-200">
+                        <div class="icon-box w-16 h-16 bg-blue-50 text-cra-blue rounded-2xl flex items-center justify-center text-2xl mb-4 transition-all duration-300">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">บุคลากร / อาจารย์</h3>
+                    </label>
+                </div>
+            </div>
+
+            <!-- FORM SECTION -->
+            <div id="form-section" class="slide-down">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fas fa-id-card text-cra-blue"></i> ข้อมูลส่วนตัว
+                    </h2>
+                    
+                    <form id="regForm" onsubmit="event.preventDefault(); validateAndSubmit();">
+                        <div class="space-y-6">
+                            
+                            <div>
+                                <label id="craIdLabel" class="block text-sm font-medium text-gray-700 mb-2">รหัสประจำตัว <span class="text-red-500">*</span></label>
+                                <input type="text" id="craId" class="input-field" placeholder="กรอกรหัสประจำตัว" pattern="[0-9]*" inputmode="numeric" required>
+                                <p class="text-xs text-gray-400 mt-1">รับเฉพาะตัวเลขเท่านั้น</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                                <div class="md:col-span-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">คำนำหน้า <span class="text-red-500">*</span></label>
+                                    <select id="prefix" class="input-field" onchange="handlePrefixChange()" required>
+                                        <option value="" disabled selected>เลือกคำนำหน้า</option>
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาง">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                        <option value="อื่นๆ">อื่น ๆ (โปรดระบุ)</option>
+                                    </select>
+                                </div>
+                                <div id="custom-prefix-wrapper" class="md:col-span-8 hidden">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ระบุคำนำหน้าชื่อ <span class="text-red-500">*</span></label>
+                                    <input type="text" id="customPrefix" class="input-field" placeholder="เช่น ดร., ผศ.ดร.">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="name-fields">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อ <span class="text-red-500">*</span></label>
+                                    <input type="text" id="firstName" class="input-field" placeholder="ชื่อจริง" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">นามสกุล <span class="text-red-500">*</span></label>
+                                    <input type="text" id="lastName" class="input-field" placeholder="นามสกุล" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label id="affiliationLabel" class="block text-sm font-medium text-gray-700 mb-2">หลักสูตร / สังกัด <span class="text-red-500">*</span></label>
+                                <select id="affiliation" class="input-field" required>
+                                    <!-- Options injected via JS -->
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">อีเมลสถาบัน <span class="text-red-500">*</span></label>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <input type="text" id="emailUsername" class="input-field flex-grow" placeholder="username" required>
+                                    <div class="flex items-center justify-center px-4 font-bold text-gray-400 bg-gray-50 border border-gray-200 rounded-xl sm:rounded-none sm:border-l-0 sm:border-r-0">@</div>
+                                    <select id="emailDomain" class="input-field sm:w-48 bg-gray-50" required>
+                                        <!-- Domains injected via JS -->
+                                    </select>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2"><i class="fas fa-info-circle mr-1"></i> อนุญาตเฉพาะอีเมลของสถาบันเท่านั้น</p>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- PDPA Card -->
+                <div class="bg-white border border-gray-200 rounded-3xl overflow-hidden mb-8 shadow-sm">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                        <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-shield-alt text-green-500"></i> การยินยอมใช้ข้อมูลส่วนบุคคล (PDPA)
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                            CRA Library จะใช้ข้อมูลของท่านเพื่อวัตถุประสงค์ในการรวบรวมความคิดเห็น การวิเคราะห์ความต้องการทรัพยากรสารสนเทศ และการวางแผนจัดหา e-Magazine สำหรับปีงบประมาณ 2570 เท่านั้น ข้อมูลของท่านจะถูกเก็บรักษาเป็นความลับและไม่ถูกนำไปใช้เพื่อการอื่น
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <div class="relative flex items-center mt-1">
+                                    <input type="radio" name="pdpa" value="accept" class="w-5 h-5 accent-cra-blue cursor-pointer" onchange="handlePdpaChange()">
+                                </div>
+                                <div>
+                                    <span class="block font-medium text-gray-800 group-hover:text-cra-blue transition-colors">ข้าพเจ้ายินยอม</span>
+                                    <span class="text-xs text-gray-500">ให้เก็บรวบรวมและใช้ข้อมูลตามวัตถุประสงค์ดังกล่าว</span>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <div class="relative flex items-center mt-1">
+                                    <input type="radio" name="pdpa" value="decline" class="w-5 h-5 accent-red-500 cursor-pointer" onchange="handlePdpaChange()">
+                                </div>
+                                <div>
+                                    <span class="block font-medium text-gray-800 group-hover:text-red-500 transition-colors">ไม่ยินยอม</span>
+                                    <span class="text-xs text-red-400 hidden" id="decline-msg">* หากไม่ยินยอม ท่านจะไม่สามารถดำเนินการคัดเลือกได้</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col-reverse sm:flex-row justify-between gap-4">
+                    <button type="button" onclick="goToPage('index')" class="px-6 py-4 rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-all">
+                        กลับหน้าแรก
+                    </button>
+                    <button type="button" id="submitBtn" onclick="validateAndSubmit()" class="bg-gray-300 text-gray-500 px-8 py-4 rounded-full font-bold shadow-sm transition-all flex items-center justify-center gap-2 cursor-not-allowed" disabled>
+                        ดำเนินการต่อ <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div id="error-msg" class="mt-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm hidden flex items-center gap-2">
+                    <i class="fas fa-exclamation-triangle"></i> <span>กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง</span>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const DEV_URL = "https://script.google.com/macros/s/AKfycbxIkboZlFSaH9o-CJY18VtTcPgUpww-VzHcxdBw5Qdk/dev";
+
+        function goToPage(pageName) {
+            const btn = document.querySelector('button[onclick^="goToPage"]');
+            if(btn) {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังโหลด...';
+            }
+            
+            // เปลี่ยนหน้าทันทีด้วยลิงก์ตรง ไม่ต้องรอฝั่งเซิร์ฟเวอร์
+            window.top.location.href = DEV_URL + '?page=' + pageName;
+        }
+
+        const studentAffiliations = [
+            "แพทยศาสตร์", "วิทยาศาสตร์ข้อมูลสุขภาพ", "พยาบาลศาสตร์", 
+            "พยาบาลศาสตร์ (นานาชาติ)", "พยาบาลศาสตร์ (2.5 ปี)", "รังสีเทคนิค", 
+            "วิทยาศาสตร์การเคลื่อนไหวและสุขภาพ", "ฉุกเฉินการแพทย์", 
+            "นวัตกรรมวิทยาศาสตร์การแพทย์", "วิศวกรรมชีวการแพทย์", "เทคโนโลยีอาหารทางการแพทย์และสุขภาพ"
+        ];
+        const staffAffiliations = [
+            "สำนักงานราชวิทยาลัยจุฬาภรณ์", "วิทยาลัยวิทยาศาสตร์การแพทย์เจ้าฟ้าจุฬาภรณ์", 
+            "คณะแพทยศาสตร์ศรีสวางควัฒน", "คณะพยาบาลศาสตร์อัครราชกุมารี", 
+            "คณะเทคโนโลยีวิทยาศาสตร์สุขภาพ", "คณะวิทยาศาสตร์", "คณะวิศวกรรมศาสตร์", 
+            "คณะนวัตกรรมอาหารและโภชนาการ", "โครงการจัดตั้งคณะเภสัชศาสตร์", "โรงพยาบาลจุฬาภรณ์"
+        ];
+
+        function handleTypeSelection() {
+            const isStudent = document.getElementById('type-student').checked;
+            const formSection = document.getElementById('form-section');
+            const affilLabel = document.getElementById('affiliationLabel');
+            const affilSelect = document.getElementById('affiliation');
+            const domainSelect = document.getElementById('emailDomain');
+            const craIdLabel = document.getElementById('craIdLabel');
+            const craIdInput = document.getElementById('craId');
+
+            formSection.classList.add('active');
+            affilSelect.innerHTML = '<option value="" disabled selected>เลือกรายการ...</option>';
+            domainSelect.innerHTML = '';
+
+            if (isStudent) {
+                craIdLabel.innerHTML = 'รหัสนักศึกษา <span class="text-red-500">*</span>';
+                craIdInput.placeholder = 'กรอกรหัสนักศึกษา';
+                
+                affilLabel.innerHTML = 'หลักสูตร <span class="text-red-500">*</span>';
+                studentAffiliations.forEach(item => {
+                    affilSelect.add(new Option(item, item));
+                });
+                domainSelect.add(new Option('edu.cra.ac.th', 'edu.cra.ac.th'));
+                domainSelect.add(new Option('pccms.ac.th', 'pccms.ac.th'));
+                domainSelect.classList.remove('bg-gray-200', 'pointer-events-none');
+            } else {
+                craIdLabel.innerHTML = 'รหัสพนักงาน <span class="text-red-500">*</span>';
+                craIdInput.placeholder = 'กรอกรหัสพนักงาน';
+
+                affilLabel.innerHTML = 'สังกัด <span class="text-red-500">*</span>';
+                staffAffiliations.forEach(item => {
+                    affilSelect.add(new Option(item, item));
+                });
+                domainSelect.add(new Option('cra.ac.th', 'cra.ac.th'));
+                domainSelect.classList.add('bg-gray-200', 'pointer-events-none');
+            }
+        }
+
+        function handlePrefixChange() {
+            const prefix = document.getElementById('prefix').value;
+            const customWrapper = document.getElementById('custom-prefix-wrapper');
+            const customInput = document.getElementById('customPrefix');
+            const nameFields = document.getElementById('name-fields');
+
+            if (prefix === 'อื่นๆ') {
+                customWrapper.classList.remove('hidden');
+                customInput.required = true;
+                nameFields.classList.replace('md:col-span-2', 'md:col-span-12'); 
+            } else {
+                customWrapper.classList.add('hidden');
+                customInput.required = false;
+                customInput.value = '';
+            }
+        }
+
+        function handlePdpaChange() {
+            const pdpaVal = document.querySelector('input[name="pdpa"]:checked').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const declineMsg = document.getElementById('decline-msg');
+
+            if (pdpaVal === 'accept') {
+                declineMsg.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.replace('bg-gray-300', 'bg-cra-blue');
+                submitBtn.classList.replace('text-gray-500', 'text-white');
+                submitBtn.classList.replace('cursor-not-allowed', 'hover:bg-cra-lightBlue');
+                submitBtn.classList.add('shadow-lg', 'shadow-blue-500/30');
+            } else {
+                declineMsg.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.classList.replace('bg-cra-blue', 'bg-gray-300');
+                submitBtn.classList.replace('text-white', 'text-gray-500');
+                submitBtn.classList.add('cursor-not-allowed');
+                submitBtn.classList.remove('shadow-lg', 'shadow-blue-500/30', 'hover:bg-cra-lightBlue');
+            }
+        }
+
+        function validateAndSubmit() {
+            const errorBox = document.getElementById('error-msg');
+            const errorText = errorBox.querySelector('span');
+            errorBox.classList.add('hidden');
+
+            const craId = document.getElementById('craId').value;
+            const prefix = document.getElementById('prefix').value;
+            const customPrefix = document.getElementById('customPrefix').value;
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const affiliation = document.getElementById('affiliation').value;
+            const username = document.getElementById('emailUsername').value.trim();
+            const domain = document.getElementById('emailDomain').value;
+            
+            if (!craId || !prefix || !firstName || !lastName || !affiliation || !username) {
+                errorText.innerText = "กรุณากรอกข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบถ้วน";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            if (prefix === 'อื่นๆ' && !customPrefix) {
+                errorText.innerText = "กรุณาระบุคำนำหน้าชื่อของคุณ";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const userData = {
+                userType: document.getElementById('type-student').checked ? 'นักศึกษา' : 'บุคลากร',
+                craId: craId,
+                name: (prefix === 'อื่นๆ' ? customPrefix : prefix) + firstName + ' ' + lastName, // จัดฟอร์แมตชื่อสำหรับหน้ารีวิว
+                department: affiliation,
+                email: `${username}@${domain}`
+            };
+
+            // บันทึกตัวแปรให้ตรงกับที่หน้ารีวิวต้องการดึงไปแสดงผล (cra_user_info)
+            localStorage.setItem('cra_user_info', JSON.stringify(userData));
+
+            // เคลียร์ตะกร้าสินค้าเก่าทิ้ง เพื่อให้คนใหม่เริ่มคัดเลือกจาก 0
+            localStorage.removeItem('cra_selected_mags');
+            localStorage.removeItem('cra_cart');
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังไปหน้าถัดไป...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // เรียกใช้ goToPage และเปลี่ยนไปหน้า select
+                goToPage('select'); 
+            }, 500);
+        }
+    </script>
 </body>
 </html>
