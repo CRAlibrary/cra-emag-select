@@ -184,9 +184,9 @@
 
         </div>
     </main>
-
-    <script>
-        const DEV_URL = "https://script.google.com/macros/s/AKfycbxIkboZlFSaH9o-CJY18VtTcPgUpww-VzHcxdBw5Qdk/dev";
+<script>
+        // เปลี่ยนมาใช้ API_URL
+        const API_URL = "https://script.google.com/macros/s/AKfycbxWqJMu2kgMFqs_7x-RfjUyRuO1Y86ZQJQUeCEqoCv4NKtBDejG3XN7n0z0dLnGymBbAw/exec";
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/1u7JsaqegLBBKySuCEiRF4QSfg_g1clf2aXJZSkmSfMo/edit";
         
         let chartInstances = {};
@@ -196,7 +196,8 @@
         window.onload = function() {
             const token = localStorage.getItem('cra_admin_token');
             if (!token) {
-                window.top.location.href = DEV_URL + "?page=admin-login";
+                // แก้ลิงก์กลับหน้าล็อกอินเป็น .html
+                window.location.href = "admin-login.html";
                 return;
             }
             fetchData();
@@ -204,7 +205,8 @@
 
         function logout() {
             localStorage.removeItem('cra_admin_token');
-            window.top.location.href = DEV_URL + "?page=index";
+            // แก้ลิงก์ล็อกเอาต์ให้กลับไป index.html
+            window.location.href = "index.html";
         }
 
         function openGoogleSheet() {
@@ -222,8 +224,10 @@
             content.classList.add('hidden');
             refreshIcon.classList.add('fa-spin');
 
-            google.script.run
-                .withSuccessHandler(function(response) {
+            // ใช้ fetch แทน google.script.run
+            fetch(API_URL + "?action=getDashboard")
+                .then(res => res.json())
+                .then(response => {
                     refreshIcon.classList.remove('fa-spin');
                     loader.classList.remove('flex');
                     loader.classList.add('hidden');
@@ -238,23 +242,21 @@
                         document.getElementById('m-avg').innerText = '฿' + m.avgBudgetPerUser.toLocaleString('th-TH', {minimumFractionDigits: 2});
                         
                         renderCharts(m.charts);
-
                         allTopMagazines = m.topMagazines;
                         magsToShow = 10;
                         renderTopTable();
-
+                        
                         content.classList.remove('hidden');
                     } else {
                         alert("เกิดข้อผิดพลาด: " + (response.message || "ไม่สามารถดึงข้อมูลได้"));
                     }
                 })
-                .withFailureHandler(function(error) {
+                .catch(error => {
                     refreshIcon.classList.remove('fa-spin');
                     loader.classList.remove('flex');
                     loader.classList.add('hidden');
                     alert("Error connection: " + error.message);
-                })
-                .getDashboardMetrics();
+                });
         }
 
         function renderCharts(chartData) {
@@ -410,7 +412,6 @@
                 });
                 tbody.innerHTML = html;
 
-                // ตรวจสอบตัวปุ่มว่ามีอยู่ใน HTML หรือไม่ก่อนทำคำสั่ง
                 if (loadMoreBtn) {
                     if (magsToShow < allTopMagazines.length) {
                         loadMoreBtn.classList.remove('hidden');
