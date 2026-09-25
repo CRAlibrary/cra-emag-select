@@ -238,7 +238,7 @@
             window.location.href = pageName + '.html';
         }
 
-        // --- Initialization ---
+ // --- Initialization ---
         document.addEventListener("DOMContentLoaded", () => {
             // Load saved cart from session
             try {
@@ -254,19 +254,8 @@
             }
             updateStickyBar();
 
-            // เพิ่มฟังก์ชันหน่วงเวลาเล็กน้อย (setTimeout 100ms) เพื่อรอให้หน้าเว็บเตรียมพร้อมรับข้อมูล
-            setTimeout(() => {
-                fetch(API_URL + "?action=getMagazines")
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.error) throw new Error(data.error);
-                        handleDataLoad(data);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        document.getElementById('loadingState').innerHTML = '<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i><p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p><p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือลิงก์ API</p></div>';
-                    });
-            }, 100);
+            // เร่งการดึงข้อมูลทันทีแบบไม่หน่วงเวลา เพื่อให้ยิง Request ไปที่ API ไวที่สุด
+            loadMagazinesData();
 
             // Event Listeners
             document.getElementById('searchInput').addEventListener('input', (e) => applyFilters());
@@ -276,6 +265,34 @@
                 renderGrid(true); 
             });
         });
+
+        // แยกฟังก์ชันโหลดข้อมูลออกมาเพื่อให้เรียกใช้ง่ายขึ้น
+        function loadMagazinesData() {
+            const loadingState = document.getElementById('loadingState');
+            const magazineGrid = document.getElementById('magazineGrid');
+            
+            loadingState.classList.remove('hidden');
+            magazineGrid.classList.add('hidden');
+
+            fetch(API_URL + "?action=getMagazines")
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error) throw new Error(data.error);
+                    handleDataLoad(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    loadingState.innerHTML = `
+                        <div class="text-center py-10">
+                            <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                            <p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p>
+                            <p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่อ หรือลองกดปุ่มด้านล่างเพื่อโหลดใหม่อีกครั้ง</p>
+                            <button onclick="loadMagazinesData()" class="mt-4 bg-cra-blue text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-cra-lightBlue transition-all">
+                                <i class="fas fa-sync-alt mr-1"></i> โหลดใหม่อีกครั้ง
+                            </button>
+                        </div>`;
+                });
+        }
 
         // --- Data Processing ---
         function handleDataLoad(data) {
