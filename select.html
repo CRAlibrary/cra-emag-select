@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -54,7 +54,7 @@
             color: white;
         }
         
-        /* Gradient mapping for actual categories */
+        /* Gradient mapping for categories */
         .cat-industry { background: linear-gradient(135deg, #475569, #94a3b8); } 
         .cat-art { background: linear-gradient(135deg, #d946ef, #f5d0fe); } 
         .cat-hobbies { background: linear-gradient(135deg, #f59e0b, #fde047); } 
@@ -104,7 +104,6 @@
                 </div>
             </div>
             
-            <!-- Step Indicator -->
             <div class="flex items-center gap-2 text-sm font-medium overflow-x-auto whitespace-nowrap custom-scroll py-2">
                 <span class="text-gray-500 flex items-center gap-1"><i class="fas fa-check-circle text-green-500"></i> 01 ลงทะเบียน</span>
                 <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
@@ -119,7 +118,6 @@
 
     <main class="flex-grow py-8 px-4 sm:px-6 max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-8">
         
-        <!-- Sidebar: Filters -->
         <aside class="w-full lg:w-64 flex-shrink-0">
             <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm sticky top-28">
                 <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">หมวดหมู่ (Categories)</h2>
@@ -129,9 +127,7 @@
             </div>
         </aside>
 
-        <!-- Main Content: Catalog -->
         <section class="flex-grow flex flex-col">
-            
             <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
                 <div class="relative w-full sm:w-96">
                     <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -149,7 +145,6 @@
                 </div>
             </div>
 
-            <!-- Header Info -->
             <div class="flex justify-between items-end mb-4">
                 <h1 class="text-2xl font-bold text-gray-800" id="currentCategoryTitle">นิตยสารทั้งหมด</h1>
                 <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full" id="resultCount">0 รายการ</span>
@@ -159,12 +154,10 @@
             <div id="loadingState" class="flex flex-col items-center justify-center py-20 w-full">
                 <div class="loader mb-4"></div>
                 <p class="text-gray-500 font-medium">กำลังดึงข้อมูลจาก Google Sheet...</p>
-                <p class="text-xs text-gray-400 mt-2 text-center max-w-md">
-                    หากค้างหน้านี้นานเกิน 10 วินาที อาจเป็นเพราะยังไม่ได้กด "อนุญาตสิทธิ์" ใน DataService.gs หรือดึงข้อมูลผิดพลาด กรุณารีเฟรชหน้าเว็บ
-                </p>
+                <p class="text-xs text-gray-400 mt-2 text-center max-w-md">ครั้งแรกอาจใช้เวลา 2-3 วินาที กรุณารอสักครู่</p>
             </div>
 
-            <!-- Grid -->
+            <!-- Magazine Grid -->
             <div id="magazineGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 hidden">
                 <!-- Cards injected by JS -->
             </div>
@@ -179,7 +172,7 @@
                 <button onclick="clearFilters()" class="mt-4 text-cra-blue hover:underline">ล้างการค้นหา</button>
             </div>
 
-            <!-- Pagination (Load More) -->
+            <!-- Load More -->
             <div class="mt-8 flex justify-center pb-10">
                 <button id="loadMoreBtn" class="hidden bg-white border border-gray-200 text-gray-600 px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition-all shadow-sm">
                     โหลดเพิ่มเติม
@@ -207,11 +200,10 @@
         </div>
     </div>
 
-<script>
-        // API URL (ชี้ไปที่ GAS API ของคุณ)
+    <script>
+        // ***สำคัญ*** นำ URL ของ API ที่คุณ Deploy ใหม่มาวางตรงนี้นะครับ
         const API_URL = "https://script.google.com/macros/s/AKfycbxWqJMu2kgMFqs_7x-RfjUyRuO1Y86ZQJQUeCEqoCv4NKtBDejG3XN7n0z0dLnGymBbAw/exec";
 
-        // --- State Variables ---
         let allMagazines = []; 
         let filteredMagazines = []; 
         let selectedItems = []; 
@@ -220,7 +212,6 @@
         const itemsPerPage = 24;
         let activeCategory = 'all';
 
-        // --- Routing Function ---
         function goToPage(pageName) {
             if (pageName === 'review' && selectedItems.length === 0) {
                 alert("กรุณาเลือก e-Magazine อย่างน้อย 1 รายการก่อนครับ");
@@ -230,17 +221,13 @@
             const btn = document.querySelector(`button[onclick="goToPage('${pageName}')"]`);
             if(btn) btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังไป...';
             
-            // เซฟข้อมูลตะกร้า
             localStorage.setItem('cra_cart', JSON.stringify(selectedItems));
             localStorage.setItem('cra_selected_mags', JSON.stringify(selectedItems));
             
-            // เปลี่ยนหน้าบน GitHub Pages
             window.location.href = pageName + '.html';
         }
 
- // --- Initialization ---
         document.addEventListener("DOMContentLoaded", () => {
-            // Load saved cart from session
             try {
                 const savedCart = localStorage.getItem('cra_cart') || localStorage.getItem('cra_selected_mags');
                 if(savedCart) {
@@ -254,11 +241,9 @@
             }
             updateStickyBar();
 
-            // เร่งการดึงข้อมูลทันทีแบบไม่หน่วงเวลา เพื่อให้ยิง Request ไปที่ API ไวที่สุด
             loadMagazinesData();
 
-            // Event Listeners
-            document.getElementById('searchInput').addEventListener('input', (e) => applyFilters());
+            document.getElementById('searchInput').addEventListener('input', () => applyFilters());
             document.getElementById('sortSelect').addEventListener('change', () => applyFilters());
             document.getElementById('loadMoreBtn').addEventListener('click', () => {
                 currentPage++;
@@ -266,35 +251,56 @@
             });
         });
 
-        // แยกฟังก์ชันโหลดข้อมูลออกมาเพื่อให้เรียกใช้ง่ายขึ้น
         function loadMagazinesData() {
             const loadingState = document.getElementById('loadingState');
             const magazineGrid = document.getElementById('magazineGrid');
+            const emptyState = document.getElementById('emptyState');
             
-            loadingState.classList.remove('hidden');
-            magazineGrid.classList.add('hidden');
+            // 1. ดึงข้อมูลจาก Cache ใน LocalStorage ก่อน (เพื่อความไว)
+            const cachedData = localStorage.getItem('cra_all_magazines');
+            if (cachedData) {
+                try {
+                    const parsedData = JSON.parse(cachedData);
+                    if (parsedData && parsedData.length > 0) {
+                        handleDataLoad(parsedData);
+                    }
+                } catch (e) { console.error("Cache parsing error", e); }
+            } else {
+                // ถ้ายังไม่มี Cache ถึงจะโชว์ไอคอนโหลด
+                loadingState.classList.remove('hidden');
+                magazineGrid.classList.add('hidden');
+                emptyState.classList.add('hidden');
+            }
 
+            // 2. Fetch ข้อมูลล่าสุดจากเซิร์ฟเวอร์
             fetch(API_URL + "?action=getMagazines")
                 .then(response => response.json())
                 .then(data => {
                     if(data.error) throw new Error(data.error);
+                    
+                    // อัปเดต Cache ให้เป็นปัจจุบัน
+                    localStorage.setItem('cra_all_magazines', JSON.stringify(data));
+                    
+                    // อัปเดตหน้าจออีกครั้ง
                     handleDataLoad(data);
                 })
                 .catch(err => {
-                    console.error(err);
-                    loadingState.innerHTML = `
-                        <div class="text-center py-10">
-                            <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
-                            <p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p>
-                            <p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่อ หรือลองกดปุ่มด้านล่างเพื่อโหลดใหม่อีกครั้ง</p>
-                            <button onclick="loadMagazinesData()" class="mt-4 bg-cra-blue text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-cra-lightBlue transition-all">
-                                <i class="fas fa-sync-alt mr-1"></i> โหลดใหม่อีกครั้ง
-                            </button>
-                        </div>`;
+                    console.error("Fetch API Error:", err);
+                    // โชว์หน้า Error เฉพาะตอนที่ผู้ใช้ไม่มี Cache เก่าอยู่เลยเท่านั้น
+                    if (!cachedData) {
+                        loadingState.innerHTML = `
+                            <div class="text-center py-10">
+                                <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                                <p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p>
+                                <p class="text-gray-500 text-sm mt-2 mb-4">${err.message}</p>
+                                <button onclick="location.reload()" class="bg-cra-blue text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-cra-lightBlue transition-all">
+                                    <i class="fas fa-sync-alt mr-1"></i> ลองใหม่อีกครั้ง
+                                </button>
+                            </div>`;
+                    }
                 });
         }
 
-        // --- Data Processing ---
         function handleDataLoad(data) {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('magazineGrid').classList.remove('hidden');
@@ -319,7 +325,6 @@
             return 'cat-default';
         }
 
-        // --- Rendering ---
         function renderSidebar() {
             const catCounts = allMagazines.reduce((acc, mag) => {
                 const category = mag.category || 'Uncategorized';
@@ -378,6 +383,13 @@
                 card.className = `mag-card group flex flex-col bg-white rounded-2xl p-3 border border-gray-100 shadow-sm hover:shadow-md transition-all ${isSelected ? 'selected' : ''}`;
                 card.dataset.id = mag.id;
                 
+                // Parse Price Safely
+                let priceValue = 0;
+                if(mag.price) {
+                    if (typeof mag.price === 'number') priceValue = mag.price;
+                    else priceValue = parseFloat(mag.price.toString().replace(/[^0-9.-]+/g,"")) || 0;
+                }
+                
                 card.innerHTML = `
                     <div class="book-cover ${colorClass} mb-3 cursor-pointer" onclick="toggleSelection('${mag.id}')">
                         <div class="cover-content">
@@ -387,7 +399,7 @@
                         <div class="cover-letter">${firstLetter}</div>
                     </div>
                     <div class="mt-auto flex flex-col px-1">
-                        <div class="text-sm font-bold text-gray-800 mb-3">฿${(mag.price || 0).toLocaleString()}</div>
+                        <div class="text-sm font-bold text-gray-800 mb-3">฿${priceValue.toLocaleString()}</div>
                         <button onclick="toggleSelection('${mag.id}')" class="select-btn w-full py-2 rounded-xl text-xs font-bold border border-gray-200 text-gray-600 hover:bg-gray-50 flex items-center justify-center gap-1">
                             ${isSelected ? '<i class="fas fa-check"></i> เลือกแล้ว' : 'เลือกเล่มนี้'}
                         </button>
@@ -404,7 +416,6 @@
             }
         }
 
-        // --- Interaction Logic ---
         function selectCategory(cat) {
             activeCategory = cat;
             
@@ -412,8 +423,10 @@
                 btn.classList.remove('bg-blue-50', 'text-cra-blue');
                 btn.classList.add('text-gray-600');
                 const badge = btn.querySelector('span');
-                badge.classList.replace('bg-blue-100', 'bg-gray-100');
-                badge.classList.replace('text-cra-blue', 'text-gray-500');
+                if(badge) {
+                    badge.classList.replace('bg-blue-100', 'bg-gray-100');
+                    badge.classList.replace('text-cra-blue', 'text-gray-500');
+                }
             });
 
             const activeBtn = document.getElementById(cat === 'all' ? 'btn-cat-all' : `btn-cat-${cssSafe(cat)}`);
@@ -421,8 +434,10 @@
                 activeBtn.classList.remove('text-gray-600');
                 activeBtn.classList.add('bg-blue-50', 'text-cra-blue');
                 const badge = activeBtn.querySelector('span');
-                badge.classList.replace('bg-gray-100', 'bg-blue-100');
-                badge.classList.replace('text-gray-500', 'text-cra-blue');
+                if(badge) {
+                    badge.classList.replace('bg-gray-100', 'bg-blue-100');
+                    badge.classList.replace('text-gray-500', 'text-cra-blue');
+                }
             }
 
             document.getElementById('currentCategoryTitle').innerText = cat === 'all' ? 'นิตยสารทั้งหมด' : cat;
@@ -444,8 +459,8 @@
             filteredMagazines.sort((a, b) => {
                 const titleA = a.title || '';
                 const titleB = b.title || '';
-                const priceA = a.price || 0;
-                const priceB = b.price || 0;
+                const priceA = parseFloat(a.price) || 0;
+                const priceB = parseFloat(b.price) || 0;
 
                 if (sortVal === 'az') return titleA.localeCompare(titleB);
                 if (sortVal === 'za') return titleB.localeCompare(titleA);
@@ -475,7 +490,6 @@
                 selectedItems.push(mag); 
             }
             
-            // Save cart to local storage immediately
             localStorage.setItem('cra_cart', JSON.stringify(selectedItems));
             localStorage.setItem('cra_selected_mags', JSON.stringify(selectedItems));
             
@@ -503,7 +517,10 @@
             const totalEl = document.getElementById('cartTotal');
             
             const count = selectedItems.length;
-            const total = selectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+            const total = selectedItems.reduce((sum, item) => {
+                let p = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.-]+/g,"")) || 0;
+                return sum + p;
+            }, 0);
             
             countEl.innerText = count;
             badgeEl.innerText = count;
