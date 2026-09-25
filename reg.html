@@ -243,17 +243,14 @@
         </div>
     </main>
 
-    <script>
-        const DEV_URL = "https://script.google.com/macros/s/AKfycbxIkboZlFSaH9o-CJY18VtTcPgUpww-VzHcxdBw5Qdk/dev";
-
+   <script>
         function goToPage(pageName) {
             const btn = document.querySelector('button[onclick^="goToPage"]');
             if(btn) {
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังโหลด...';
+                btn.disabled = true;
             }
-            
-            // เปลี่ยนหน้าทันทีด้วยลิงก์ตรง ไม่ต้องรอฝั่งเซิร์ฟเวอร์
-            window.top.location.href = DEV_URL + '?page=' + pageName;
+            window.location.href = pageName + '.html';
         }
 
         const studentAffiliations = [
@@ -374,15 +371,12 @@
             const userData = {
                 userType: document.getElementById('type-student').checked ? 'นักศึกษา' : 'บุคลากร',
                 craId: craId,
-                name: (prefix === 'อื่นๆ' ? customPrefix : prefix) + firstName + ' ' + lastName, // จัดฟอร์แมตชื่อสำหรับหน้ารีวิว
+                name: (prefix === 'อื่นๆ' ? customPrefix : prefix) + firstName + ' ' + lastName, 
                 department: affiliation,
                 email: `${username}@${domain}`
             };
 
-            // บันทึกตัวแปรให้ตรงกับที่หน้ารีวิวต้องการดึงไปแสดงผล (cra_user_info)
             localStorage.setItem('cra_user_info', JSON.stringify(userData));
-
-            // เคลียร์ตะกร้าสินค้าเก่าทิ้ง เพื่อให้คนใหม่เริ่มคัดเลือกจาก 0
             localStorage.removeItem('cra_selected_mags');
             localStorage.removeItem('cra_cart');
 
@@ -391,8 +385,7 @@
             btn.disabled = true;
 
             setTimeout(() => {
-                // เรียกใช้ goToPage และเปลี่ยนไปหน้า select
-                goToPage('select'); 
+                window.location.href = 'select.html';
             }, 500);
         }
     </script>
