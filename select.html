@@ -254,17 +254,19 @@
             }
             updateStickyBar();
 
-            // Fetch Data ผ่าน Fetch API แทน google.script.run
-            fetch(API_URL + "?action=getMagazines")
-                .then(response => response.json())
-                .then(data => {
-                    if(data.error) throw new Error(data.error);
-                    handleDataLoad(data);
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById('loadingState').innerHTML = '<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i><p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p><p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือลิงก์ API</p></div>';
-                });
+            // เพิ่มฟังก์ชันหน่วงเวลาเล็กน้อย (setTimeout 100ms) เพื่อรอให้หน้าเว็บเตรียมพร้อมรับข้อมูล
+            setTimeout(() => {
+                fetch(API_URL + "?action=getMagazines")
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.error) throw new Error(data.error);
+                        handleDataLoad(data);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        document.getElementById('loadingState').innerHTML = '<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i><p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p><p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือลิงก์ API</p></div>';
+                    });
+            }, 100);
 
             // Event Listeners
             document.getElementById('searchInput').addEventListener('input', (e) => applyFilters());
