@@ -207,7 +207,10 @@
         </div>
     </div>
 
-    <script>
+<script>
+        // API URL (ชี้ไปที่ GAS API ของคุณ)
+        const API_URL = "https://script.google.com/macros/s/AKfycbxWqJMu2kgMFqs_7x-RfjUyRuO1Y86ZQJQUeCEqoCv4NKtBDejG3XN7n0z0dLnGymBbAw/exec";
+
         // --- State Variables ---
         let allMagazines = []; 
         let filteredMagazines = []; 
@@ -217,7 +220,7 @@
         const itemsPerPage = 24;
         let activeCategory = 'all';
 
-        // --- Routing Function (FIXED FOR /dev) ---
+        // --- Routing Function ---
         function goToPage(pageName) {
             if (pageName === 'review' && selectedItems.length === 0) {
                 alert("กรุณาเลือก e-Magazine อย่างน้อย 1 รายการก่อนครับ");
@@ -227,20 +230,18 @@
             const btn = document.querySelector(`button[onclick="goToPage('${pageName}')"]`);
             if(btn) btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังไป...';
             
-            // เซฟข้อมูลตะกร้า (เซฟไว้ 2 ชื่อเลย เพื่อให้รองรับกับหน้ารีวิวทุกเวอร์ชันที่เคยทำ)
+            // เซฟข้อมูลตะกร้า
             localStorage.setItem('cra_cart', JSON.stringify(selectedItems));
             localStorage.setItem('cra_selected_mags', JSON.stringify(selectedItems));
             
-            // ลิงก์ /dev แบบตายตัวของคุณ
-            const DEV_URL = "https://script.google.com/macros/s/AKfycbxIkboZlFSaH9o-CJY18VtTcPgUpww-VzHcxdBw5Qdk/dev";
-            window.top.location.href = DEV_URL + '?page=' + pageName;
+            // เปลี่ยนหน้าบน GitHub Pages
+            window.location.href = pageName + '.html';
         }
 
         // --- Initialization ---
         document.addEventListener("DOMContentLoaded", () => {
             // Load saved cart from session
             try {
-                // ดึงจาก key ใด key หนึ่ง
                 const savedCart = localStorage.getItem('cra_cart') || localStorage.getItem('cra_selected_mags');
                 if(savedCart) {
                     selectedItems = JSON.parse(savedCart);
@@ -253,16 +254,17 @@
             }
             updateStickyBar();
 
-            // Fetch Data
-            if (typeof google !== 'undefined' && google.script) {
-                google.script.run
-                    .withSuccessHandler(handleDataLoad)
-                    .withFailureHandler((err) => { 
-                        console.error(err); 
-                        document.getElementById('loadingState').innerHTML = '<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i><p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p><p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการอนุญาตสิทธิ์ในไฟล์ DataService.gs</p></div>'; 
-                    })
-                    .getMagazines();
-            }
+            // Fetch Data ผ่าน Fetch API แทน google.script.run
+            fetch(API_URL + "?action=getMagazines")
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error) throw new Error(data.error);
+                    handleDataLoad(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('loadingState').innerHTML = '<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i><p class="text-red-500 font-bold">เกิดข้อผิดพลาดในการดึงข้อมูล</p><p class="text-gray-500 text-sm mt-2">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือลิงก์ API</p></div>';
+                });
 
             // Event Listeners
             document.getElementById('searchInput').addEventListener('input', (e) => applyFilters());
