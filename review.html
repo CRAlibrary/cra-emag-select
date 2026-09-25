@@ -91,18 +91,15 @@
         <p class="text-gray-700 font-medium">กำลังบันทึกข้อมูลลง Google Sheet...</p>
     </div>
 
-    <script>
-        const DEV_URL = "https://script.google.com/macros/s/AKfycbxIkboZlFSaH9o-CJY18VtTcPgUpww-VzHcxdBw5Qdk/dev";
+ <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbxWqJMu2kgMFqs_7x-RfjUyRuO1Y86ZQJQUeCEqoCv4NKtBDejG3XN7n0z0dLnGymBbAw/exec";
         
         let cartData = [];
         let userData = {};
 
-        window.onload = function() {
-            loadData();
-        };
+        window.onload = function() { loadData(); };
 
         function loadData() {
-            // โหลดข้อมูลผู้ใช้จาก LocalStorage
             const savedUser = localStorage.getItem('cra_user_info');
             if (savedUser) {
                 userData = JSON.parse(savedUser);
@@ -114,7 +111,6 @@
                 `;
             }
 
-            // โหลดข้อมูลตะกร้าสินค้า
             const savedCart = localStorage.getItem('cra_selected_mags');
             if (savedCart) {
                 cartData = JSON.parse(savedCart);
@@ -142,11 +138,12 @@
         }
 
         function goBack() {
-            window.top.location.href = DEV_URL + '?page=select';
+            window.location.href = 'select.html';
         }
 
         function submitData() {
             document.getElementById('loader').classList.remove('hidden');
+            document.getElementById('loader').classList.add('flex');
             document.getElementById('submitBtn').disabled = true;
 
             const payload = {
@@ -156,19 +153,29 @@
                 totalPrice: cartData.reduce((sum, item) => sum + (item.price || 0), 0)
             };
 
-            // เรียกใช้ฟังก์ชันเซฟข้อมูลหลังบ้าน
-            google.script.run
-                .withSuccessHandler(function() {
-                    // ถ้าเซฟสำเร็จ ให้ล้างตะกร้าทิ้ง แล้วเปลี่ยนหน้าแบบ Top Location
+            fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: 'saveSelection', data: payload }),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            })
+            .then(res => res.json())
+            .then(result => {
+                if(result.success) {
                     localStorage.removeItem('cra_selected_mags');
-                    window.top.location.href = DEV_URL + '?page=success';
-                })
-                .withFailureHandler(function(error) {
+                    window.location.href = 'success.html';
+                } else {
                     document.getElementById('loader').classList.add('hidden');
+                    document.getElementById('loader').classList.remove('flex');
                     document.getElementById('submitBtn').disabled = false;
-                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: ' + error.message + '\n\nกรุณาตรวจสอบการล็อกอิน Google Account หรือสิทธิ์การเข้าถึง Sheet');
-                })
-                .saveSelection(payload);
+                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: ' + result.message);
+                }
+            })
+            .catch(error => {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('loader').classList.remove('flex');
+                document.getElementById('submitBtn').disabled = false;
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์');
+            });
         }
     </script>
 </body>
