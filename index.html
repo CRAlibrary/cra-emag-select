@@ -385,23 +385,20 @@
     </footer>
 
     <!-- Logic Script -->
-    <script>
-        // ฟังก์ชันสำหรับดึง URL หลักและเปลี่ยนหน้า
+   <script>
+        // API URL ของคุณสำหรับดึงข้อมูล
+        const API_URL = "https://script.google.com/macros/s/AKfycbxWqJMu2kgMFqs_7x-RfjUyRuO1Y86ZQJQUeCEqoCv4NKtBDejG3XN7n0z0dLnGymBbAw/exec";
+
+        // ฟังก์ชันสำหรับเปลี่ยนหน้า (แก้ให้ลิงก์ไปที่ไฟล์ .html โดยตรง)
         function goToPage(pageName) {
             const btn = document.querySelector('button[onclick^="goToPage"]');
             if(btn) {
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังโหลด...';
                 btn.disabled = true;
             }
-            
-            google.script.run
-                .withSuccessHandler(function(url) {
-                    window.top.location.href = url + '?page=' + pageName;
-                })
-                .getAppUrl();
+            window.location.href = pageName + '.html';
         }
 
-        // Set fixed deadline for visual purposes based on prompt
         const updateCountdown = () => {
             const endDate = new Date('2026-10-15T23:59:59').getTime();
             const now = new Date().getTime();
@@ -425,61 +422,8 @@
             }
         };
         
-        setInterval(updateCountdown, 1000); // Update every 1 second
+        setInterval(updateCountdown, 1000);
         updateCountdown(); 
-
-        document.addEventListener("DOMContentLoaded", () => {
-            // ตรวจสอบว่าเปิดผ่านระบบของ Google Apps Script หรือไม่
-            if (typeof google !== 'undefined' && google.script) {
-                
-                // สั่งรันฟังก์ชัน getFeaturedMagazines ที่ Backend
-                google.script.run
-                    .withSuccessHandler(function(magazines) {
-                        if (!magazines || magazines.length === 0) return;
-                        
-                        // ค้นหากล่องหน้าปก Magazine ทั้งหมดบนหน้าจอ
-                        const covers = document.querySelectorAll('.mag-cover');
-                        
-                        covers.forEach((cover, index) => {
-                            // ถ้ามีข้อมูลแมกกาซีนสำหรับปกนี้
-                            if (magazines[index]) {
-                                const mag = magazines[index];
-                                
-                                // หา key ของ Title และ Category (รองรับชื่อคอลัมน์หลายแบบ)
-                                const title = mag.title || mag['ชื่อเรื่อง'] || mag['ชื่อหนังสือ'] || 'e-Magazine';
-                                const category = mag.category || mag['หมวดหมู่'] || 'Featured';
-                                
-                                // หา Element ที่ใช้แสดงข้อความบนปก (แท็ก h3 คือชื่อเรื่อง)
-                                const titleEl = cover.querySelector('h3');
-                                // ค้นหา Element ที่แสดงหมวดหมู่ (ปกติจะมี class uppercase)
-                                const catEl = cover.querySelector('.uppercase'); 
-                                
-                                if (titleEl) {
-                                    titleEl.innerText = title;
-                                    
-                                    // ปรับขนาดฟอนต์ให้เล็กลง เพื่อรองรับชื่อเรื่องยาวๆ ของจริง
-                                    titleEl.classList.remove('text-3xl', 'text-4xl', 'text-5xl', 'font-black');
-                                    titleEl.classList.add('text-xl', 'font-bold', 'leading-snug');
-                                    
-                                    // ใช้ CSS ตัดคำอัตโนมัติ (ใส่ ...) หากชื่อยาวเกิน 3 บรรทัด
-                                    titleEl.style.display = '-webkit-box';
-                                    titleEl.style.webkitLineClamp = '3';
-                                    titleEl.style.webkitBoxOrient = 'vertical';
-                                    titleEl.style.overflow = 'hidden';
-                                }
-                                
-                                if (catEl) {
-                                    catEl.innerText = category;
-                                }
-                            }
-                        });
-                    })
-                    .withFailureHandler(function(error) {
-                        console.error("Failed to load featured magazines", error);
-                    })
-                    .getFeaturedMagazines();
-            }
-        });
     </script>
 </body>
 </html>
